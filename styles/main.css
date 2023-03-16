@@ -26,3 +26,13 @@ nav {
   position: absolute;
   top: 240px;
 }
+
+#left-arrow {
+  position: absolute;
+  left: 30px;
+}
+
+#right-arrow {
+  position: absolute;
+  left: 620px;
+}
