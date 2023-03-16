@@ -21,3 +21,8 @@ div [class='slide'] {
   padding-right: 20px;
   vertical-align: top;
 }
+
+nav {
+  position: absolute;
+  top: 240px;
+}
