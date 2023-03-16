@@ -5,3 +5,19 @@ h1 {
   font-size: 32px;
   line-height: 38px;
 }
+
+div [class='carousel-slides'] {
+  text-align: center;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 300;
+  overflow-x: scroll;
+  white-space: nowrap;
+}
+
+div [class='slide'] {
+  display: inline-block;
+  width: 640px;
+  padding-left: 20px;
+  padding-right: 20px;
+  vertical-align: top;
+}
