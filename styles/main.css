@@ -14,6 +14,7 @@ h1 {
 .carousel {
   width: 680px;
   margin: auto;
+  overflow: hidden;
 }
 
 .album-info {
@@ -31,8 +32,8 @@ h1 {
   text-align: center;
   font-family: 'Open Sans', sans-serif;
   font-weight: 300;
-  overflow-x: scroll;
   white-space: nowrap;
+  transition: 1s;
 }
 
 .slide {
