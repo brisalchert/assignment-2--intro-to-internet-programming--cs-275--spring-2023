@@ -14,7 +14,6 @@ h1 {
 .carousel {
   width: 680px;
   margin: auto;
-  overflow: hidden;
 }
 
 .album-info {
