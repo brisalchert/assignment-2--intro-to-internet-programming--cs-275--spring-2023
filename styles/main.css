@@ -6,7 +6,7 @@ h1 {
   line-height: 38px;
 }
 
-div [class='carousel-slides'] {
+.carousel-slides {
   text-align: center;
   font-family: 'Open Sans', sans-serif;
   font-weight: 300;
@@ -14,13 +14,17 @@ div [class='carousel-slides'] {
   white-space: nowrap;
 }
 
-div [class='slide'] {
+.slide {
   display: inline-block;
   width: 640px;
   padding-left: 20px;
   padding-right: 20px;
   vertical-align: top;
   line-height: 1.4;
+}
+
+.album-info {
+  display: block;
 }
 
 nav {
