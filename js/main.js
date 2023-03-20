@@ -4,6 +4,42 @@ const carouselSlides = document.getElementsByClassName(`carousel-slides`)[0];
 
 let slidesLeft = carouselSlides.clientLeft;
 
+document.body.addEventListener(`keydown`, (event) => {
+    const key = event.key;
+
+    switch (key) {
+        case `ArrowLeft`:
+            if (slidesLeft > -2040) {
+                carouselSlides.style.transform = `translateX(${slidesLeft -= 680}px)`;
+
+                if (slidesLeft === -2040) {
+                    leftArrow.style.visibility = `hidden`;
+                }
+
+                if (slidesLeft === -680) {
+                    rightArrow.style.visibility = `visible`;
+                }
+            }
+
+            break;
+
+        case `ArrowRight`:
+            if (slidesLeft < 0) {
+                carouselSlides.style.transform = `translateX(${slidesLeft += 680}px)`;
+
+                if (slidesLeft === 0) {
+                    rightArrow.style.visibility = `hidden`;
+                }
+
+                if (slidesLeft === -1360) {
+                    leftArrow.style.visibility = `visible`;
+                }
+            }
+
+            break;
+    }
+});
+
 leftArrow.addEventListener(`click`, () => {
     carouselSlides.style.transform = `translateX(${slidesLeft -= 680}px)`;
 
