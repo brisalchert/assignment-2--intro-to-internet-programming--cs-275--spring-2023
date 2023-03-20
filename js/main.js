@@ -1,8 +1,34 @@
-const leftArrow = document.getElementById(`left-arrow`);
-const rightArrow = document.getElementById(`right-arrow`);
+const body = document.getElementsByTagName(`body`)[0];
+const nav = document.getElementsByTagName(`nav`)[0];
+const leftArrow = nav.children[0];
+const rightArrow = nav.children[1];
 const carouselSlides = document.getElementsByClassName(`carousel-slides`)[0];
-
 let slidesLeft = carouselSlides.clientLeft;
+
+leftArrow.id = `left-arrow`;
+rightArrow.id = `right-arrow`;
+
+function slides(data) {
+    for (let index = 0; index < data.length; index++) {
+        let slide = document.createElement(`div`);
+        slide.classList.add(`slide`);
+        carouselSlides.appendChild(slide);
+
+        let albumInfo = document.createElement(`span`);
+        albumInfo.classList.add(`album-info`);
+        slide.appendChild(albumInfo);
+
+        let albumTitle = document.createElement(`p`);
+        albumTitle.classList.add(`album-title`);
+        albumTitle.textContent += data[index].album;
+        albumInfo.appendChild(albumTitle);
+
+        let artist = document.createElement(`a`);
+        artist.textContent += data[index].artist;
+        artist.href = data[index].url;
+        albumInfo.appendChild(artist);
+    }
+}
 
 document.body.addEventListener(`keydown`, (event) => {
     const key = event.key;
@@ -63,3 +89,7 @@ rightArrow.addEventListener(`click`, () => {
         leftArrow.style.visibility = `visible`;
     }
 });
+
+let script = document.createElement(`script`);
+script.setAttribute(`src`, `json/data.json`);
+body.appendChild(script);
