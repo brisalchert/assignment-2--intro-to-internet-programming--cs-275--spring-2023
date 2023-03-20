@@ -20,13 +20,41 @@ function slides(data) {
 
         let albumTitle = document.createElement(`p`);
         albumTitle.classList.add(`album-title`);
-        albumTitle.textContent += data[index].album;
+        albumTitle.textContent = data[index].album;
         albumInfo.appendChild(albumTitle);
 
         let artist = document.createElement(`a`);
-        artist.textContent += data[index].artist;
+        artist.textContent = data[index].artist;
         artist.href = data[index].url;
         albumInfo.appendChild(artist);
+
+        let image = document.createElement(`img`);
+        image.src = data[index].cover_image.path;
+        image.alt = data[index].cover_image.alt_content;
+        slide.appendChild(image);
+
+        let credit = document.createElement(`p`);
+        let creditAnchor = document.createElement(`a`);
+        credit.classList.add(`credit`);
+        creditAnchor.href = data[index].cover_image.url;
+        creditAnchor.textContent = data[index].cover_image.credit;
+        credit.textContent = `Credit: `;
+        credit.appendChild(creditAnchor);
+        slide.appendChild(credit);
+
+        let content = document.createElement(`p`);
+        content.classList.add(`content`);
+        content.textContent = data[index].review.content;
+        slide.appendChild(content);
+
+        let source = document.createElement(`p`);
+        let sourceAnchor = document.createElement(`a`);
+        source.classList.add(`source`);
+        sourceAnchor.href = data[index].review.url;
+        sourceAnchor.textContent = data[index].review.source;
+        source.textContent = `\u2014`;
+        source.appendChild(sourceAnchor);
+        slide.appendChild(source);
     }
 }
 
