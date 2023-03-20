@@ -4,10 +4,6 @@ const carouselSlides = document.getElementsByClassName(`carousel-slides`)[0];
 
 let slidesLeft = carouselSlides.clientLeft;
 
-window.onload = () => {
-    alert(`Test`);
-};
-
 leftArrow.addEventListener(`click`, () => {
     carouselSlides.style.transform = `translateX(${slidesLeft -= 680}px)`;
 
