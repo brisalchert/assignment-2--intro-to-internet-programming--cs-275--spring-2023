@@ -27,7 +27,7 @@ let lintJS = () => {
 };
 
 let lintCSS = () => {
-    return src(`styles/*.css`)
+    return src(`styles/main.css`)
         .pipe(CSSLinter({
             failAfterError: false,
             reporters: [
@@ -125,12 +125,14 @@ exports.transpileJSForProd = transpileJSForProd;
 exports.copyUnprocessedAssetsForProd = copyUnprocessedAssetsForProd;
 exports.clean = clean;
 exports.default = series(
+    lintCSS,
     compileCSSForDev,
     lintJS,
     transpileJSForDev,
     serve
 );
 exports.serve = series(
+    lintCSS,
     compileCSSForDev,
     lintJS,
     transpileJSForDev,
