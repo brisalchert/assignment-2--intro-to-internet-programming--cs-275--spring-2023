@@ -43,7 +43,7 @@ let transpileJSForDev = () => {
 };
 
 let compressHTML = () => {
-    return src(`*.html`)
+    return src(`index.html`)
         .pipe(htmlCompressor({collapseWhitespace: true}))
         .pipe(dest(`prod`));
 };
@@ -61,16 +61,17 @@ let transpileJSForProd = () => {
     return src(`js/*.js`)
         .pipe(babel())
         .pipe(jsCompressor())
-        .pipe(dest(`prod/scripts`));
+        .pipe(dest(`prod/js`));
 };
 
 let copyUnprocessedAssetsForProd = () => {
     return src([
-        `*.*`,       // Source all files,
-        `**`,        // and all folders,
-        `!img/`,     // ignore images;
-        `!**/*.js`,  // ignore JS;
-        `!styles/**` // and, ignore Sass/CSS.
+        `img*/*.jpg`,       // Source all jpg images,
+        `img*/*.svg`,       // and all svg images,
+        `js*/*.js`,         // and all .js,
+        `json*/*.json`,     // and all .json,
+        `styles*/*.css`,    // and all .css,
+        `index.html`        // and index.html
     ], {dot: true})
         .pipe(dest(`prod`));
 };
