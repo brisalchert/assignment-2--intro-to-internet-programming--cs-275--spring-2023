@@ -7,7 +7,7 @@ let slidesLeft = carouselSlides.clientLeft;
 
 leftArrow.id = `left-arrow`;
 rightArrow.id = `right-arrow`;
-.
+
 function slides(data) {
     for (let index = 0; index < data.length; index++) {
         let slide = document.createElement(`div`);
