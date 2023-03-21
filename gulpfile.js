@@ -52,12 +52,23 @@ let transpileJSForProd = () => {
         .pipe(dest(`prod/js`));
 };
 
-let copyUnprocessedAssetsForProd = () => {
+let copyUnprocessedAssetsForDev = () => {
     return src([
         `img*/*.jpg`,       // Source all jpg images,
         `img*/*.svg`,       // and all svg images,
         `json*/*.json`,     // and all .json,
-        `styles*/reset.css`, // and reset.css
+        `styles*/*.css`,    // and all .css,
+        `index.html`        // and index.html
+    ], {dot: true})
+        .pipe(dest(`temp`));
+};
+
+let copyUnprocessedAssetsForProd = () => {
+    return src([
+        `img*/*.jpg`,         // Source all jpg images,
+        `img*/*.svg`,         // and all svg images,
+        `json*/*.json`,       // and all .json,
+        `styles*/reset.css`,  // and reset.css
     ], {dot: true})
         .pipe(dest(`prod`));
 };
@@ -69,8 +80,7 @@ let serve = () => {
         browser: browserChoice,
         server: {
             baseDir: [
-                `temp`,
-                `./`
+                `temp`
             ]
         }
     });
@@ -109,17 +119,20 @@ exports.compressCSSForProd = compressCSSForProd;
 exports.compressHTML = compressHTML;
 exports.transpileJSForProd = transpileJSForProd;
 exports.copyUnprocessedAssetsForProd = copyUnprocessedAssetsForProd;
+exports.copyUnprocessedAssetsForDev = copyUnprocessedAssetsForDev;
 exports.clean = clean;
 exports.default = series(
     lintCSS,
     lintJS,
     transpileJSForDev,
+    copyUnprocessedAssetsForDev,
     serve
 );
 exports.serve = series(
     lintCSS,
     lintJS,
     transpileJSForDev,
+    copyUnprocessedAssetsForDev,
     serve
 );
 exports.build = series(
