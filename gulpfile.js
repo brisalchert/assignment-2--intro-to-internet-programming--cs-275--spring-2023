@@ -39,7 +39,7 @@ let lintCSS = () => {
 let transpileJSForDev = () => {
     return src(`js/*.js`)
         .pipe(babel())
-        .pipe(dest(`temp/scripts`));
+        .pipe(dest(`temp/js`));
 };
 
 let compressHTML = () => {
