@@ -1,5 +1,6 @@
 const { src, dest, series, watch } = require(`gulp`),
     CSSLinter = require(`gulp-stylelint`),
+    cleanCSS = require(`gulp-clean-css`),
     del = require(`del`),
     babel = require(`gulp-babel`),
     htmlCompressor = require(`gulp-htmlmin`),
@@ -32,6 +33,12 @@ let transpileJSForDev = () => {
         .pipe(dest(`temp/js`));
 };
 
+let compressCSSForProd = () => {
+    return src(`styles/main.css`)
+        .pipe(cleanCSS({compatibility: `ie8`}))
+        .pipe(dest(`prod/styles`));
+};
+
 let compressHTML = () => {
     return src(`index.html`)
         .pipe(htmlCompressor({collapseWhitespace: true}))
@@ -49,10 +56,8 @@ let copyUnprocessedAssetsForProd = () => {
     return src([
         `img*/*.jpg`,       // Source all jpg images,
         `img*/*.svg`,       // and all svg images,
-        `js*/*.js`,         // and all .js,
         `json*/*.json`,     // and all .json,
-        `styles*/*.css`,    // and all .css,
-        `index.html`        // and index.html
+        `styles*/reset.css`, // and reset.css
     ], {dot: true})
         .pipe(dest(`prod`));
 };
@@ -100,6 +105,7 @@ async function clean() {
 exports.lintJS = lintJS;
 exports.lintCSS = lintCSS;
 exports.transpileJSForDev = transpileJSForDev;
+exports.compressCSSForProd = compressCSSForProd;
 exports.compressHTML = compressHTML;
 exports.transpileJSForProd = transpileJSForProd;
 exports.copyUnprocessedAssetsForProd = copyUnprocessedAssetsForProd;
@@ -118,6 +124,7 @@ exports.serve = series(
 );
 exports.build = series(
     compressHTML,
+    compressCSSForProd,
     transpileJSForProd,
     copyUnprocessedAssetsForProd
 );
