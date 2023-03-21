@@ -15,12 +15,12 @@
     "del": "^6.0.0",
     "gulp": "^4.0.2",
     "gulp-babel": "^8.0.0",
+    "gulp-css-minify": "^0.9.2",
     "gulp-eslint": "^6.0.0",
     "gulp-htmlmin": "^5.0.1",
     "gulp-sass": "^5.0.0",
     "gulp-stylelint": "^13.0.0",
-    "gulp-uglify": "^3.0.2",
-    "sass": "^1.42.1"
+    "gulp-uglify": "^3.0.2"
   },
   "dependencies": {
     "stylelint": "^13.13.1"
