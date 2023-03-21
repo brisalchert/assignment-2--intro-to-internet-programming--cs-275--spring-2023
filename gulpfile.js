@@ -5,20 +5,10 @@ const { src, dest, series, watch } = require(`gulp`),
     htmlCompressor = require(`gulp-htmlmin`),
     jsCompressor = require(`gulp-uglify`),
     jsLinter = require(`gulp-eslint`),
-    sass = require(`gulp-sass`)(require(`sass`)),
     browserSync = require(`browser-sync`),
     reload = browserSync.reload;
 
 let browserChoice = `default`;
-
-let compileCSSForDev = () => {
-    return src(`styles/main.css`)
-        .pipe(sass.sync({
-            outputStyle: `expanded`,
-            precision: 10
-        }).on(`error`, sass.logError))
-        .pipe(dest(`temp/styles`));
-};
 
 let lintJS = () => {
     return src(`js/*.js`)
@@ -46,15 +36,6 @@ let compressHTML = () => {
     return src(`index.html`)
         .pipe(htmlCompressor({collapseWhitespace: true}))
         .pipe(dest(`prod`));
-};
-
-let compileCSSForProd = () => {
-    return src(`styles/main.css`)
-        .pipe(sass.sync({
-            outputStyle: `compressed`,
-            precision: 10
-        }).on(`error`, sass.logError))
-        .pipe(dest(`prod/styles`));
 };
 
 let transpileJSForProd = () => {
@@ -92,7 +73,7 @@ let serve = () => {
     watch(`js/*.js`, series(lintJS, transpileJSForDev))
         .on(`change`, reload);
 
-    watch(`styles/*.css`, series(lintCSS, compileCSSForDev))
+    watch(`styles/*.css`, lintCSS)
         .on(`change`, reload);
 };
 
@@ -116,32 +97,27 @@ async function clean() {
     process.stdout.write(`\n`);
 }
 
-exports.compileCSSForDev = compileCSSForDev;
 exports.lintJS = lintJS;
 exports.lintCSS = lintCSS;
 exports.transpileJSForDev = transpileJSForDev;
 exports.compressHTML = compressHTML;
-exports.compileCSSForProd = compileCSSForProd;
 exports.transpileJSForProd = transpileJSForProd;
 exports.copyUnprocessedAssetsForProd = copyUnprocessedAssetsForProd;
 exports.clean = clean;
 exports.default = series(
     lintCSS,
-    compileCSSForDev,
     lintJS,
     transpileJSForDev,
     serve
 );
 exports.serve = series(
     lintCSS,
-    compileCSSForDev,
     lintJS,
     transpileJSForDev,
     serve
 );
 exports.build = series(
     compressHTML,
-    compileCSSForProd,
     transpileJSForProd,
     copyUnprocessedAssetsForProd
 );
